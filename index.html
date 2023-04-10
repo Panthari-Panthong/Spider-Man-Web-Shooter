@@ -5,24 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/style.css" />
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+      rel="stylesheet"
+    />
+
     <title>Spiderman Web Shooter</title>
   </head>
   <body>
     <div class="game-intro">
-      <button id="start-button">StartGame</button>
+      <h1>Spiderman</h1>
       <p>
-        Use the left, right ,up and down arrow to control the spiderman and
-        space bar to shoot!
+        Use the left right up and down arrow to control the spiderman and space
+        bar to shoot!
       </p>
       <img
         src="./images/keyboard-arrow-keys.png"
         alt="arrow-img"
         class="arrows-img"
       />
+      <br />
+      <button id="start-button">StartGame</button>
     </div>
 
     <div id="game-board">
-      <canvas id="canvas" width="700" height="500"></canvas>
+      <canvas id="canvas" width="900" height="500"></canvas>
     </div>
 
     <script type="text/javascript" src="js/index.js"></script>
