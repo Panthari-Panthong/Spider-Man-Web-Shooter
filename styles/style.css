@@ -1,3 +1,34 @@
 body {
-    background-color: aqua;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .game-intro {
+    padding: 0% 10%;
+  }
+  
+  .game-intro p {
+    font-size: 18px;
+    font-family: "Verdana"
+  }
+  
+  body button {
+    font-size: 30px;
+    background-color: #870007;
+    color: #fff;
+    padding: 20px 40px;
+    border: 0;
+    box-shadow: 0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  .arrows-img {
+    width: 150px;
+  }
+
+  #game-board {
+    display: none;
+    padding: 20px 0px;
+    background-color: rgb(5, 1, 35);
 }
