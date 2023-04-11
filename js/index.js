@@ -22,15 +22,7 @@ window.addEventListener('load', () => {
     const enemyImg = new Image()
     enemyImg.src = "images/green-goblin.png"
 
-    const player = {
-        x:canvas.width/4, 
-        y: canvas.height/2,
-        height:100,
-        width: 130,
-        cooldown: 0,
-        score: 0,
-        heath: 5
-    }
+    const player = new Player(canvas.width/4,canvas.height/2)
 
     const enemy = {
         x:canvas.width/2+canvas.width/4, 
@@ -56,6 +48,12 @@ window.addEventListener('load', () => {
             if(web.x > canvas.width){
                 webs.splice(index, 1)
             }
+
+            if(checkCollision(web, enemy)){
+                console.log("GOBLIN GOT HIT")
+                webs.splice(index, 1)
+                player.score++
+            }
         })
 
         if(player.cooldown > 0){
@@ -67,6 +65,10 @@ window.addEventListener('load', () => {
     //Goblin
     const drawEnemy = () => {
         ctx.drawImage(enemyImg,enemy.x,enemy.y,enemy.width,enemy.height);
+    }
+
+    const checkCollision = (a,b) => {
+        return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.height + a.y > b.y
     }
 
 
@@ -88,13 +90,7 @@ window.addEventListener('load', () => {
 
         if(isSpace && player.cooldown <= 0){
             player.cooldown = 80
-            webs.push({
-                x: player.x+player.width-40,
-                y: player.y+player.height/2,
-                speed: websSpeed,
-                width: 20,
-                height: 20
-            })
+            webs.push(new Obstacle(player.x+player.width-40,player.y+player.height/2,websSpeed))
         }
 
         if(animateId %  200 === 0){
