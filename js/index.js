@@ -11,16 +11,16 @@ window.addEventListener('load', () => {
     const ctx = canvas.getContext('2d')
 
     const bgImg = new Image()
-    bgImg.src = "../images/city-backdrop.jpeg"
+    bgImg.src = "images/city-backdrop.jpeg"
 
     const playerImg = new Image()
-    playerImg.src = "../images/spiderman.png"
+    playerImg.src = "images/spiderman.png"
 
     const spiderWeb = new Image()
-    spiderWeb.src = "../images/spiderWeb.png"
+    spiderWeb.src = "images/spiderWeb.png"
 
     const enemyImg = new Image()
-    enemyImg.src = "../images/green-goblin.png"
+    enemyImg.src = "images/green-goblin.png"
 
     const player = {
         x:canvas.width/4, 
