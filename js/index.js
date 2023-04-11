@@ -22,33 +22,37 @@ window.addEventListener('load', () => {
     const enemyImg = new Image()
     enemyImg.src = "images/green-goblin.png"
 
-    const player = new Player(canvas.width/4,canvas.height/2)
+    const bombImg = new Image()
+    bombImg.src = "images/bomb.png"
 
-    const enemy = {
-        x:canvas.width/2+canvas.width/4, 
-        y: canvas.height/2,
-        height:170,
-        width: 170,
-    }
+    const player = new Player(canvas.width/4,canvas.height/2,100,130)
+
+    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170)
 
     let animateId
 
 
     const webs = []
-    let websSpeed = 10
+    let webSpeed = 10
+
+    const bombs = []
+    let bombSpeed = 8
 
     //Spiderman
     const drawPlayer = () => {
         ctx.drawImage(playerImg,player.x,player.y,player.width,player.height);
 
+        //Draw a web after click spacebar
         webs.forEach((web, index) => {
             ctx.drawImage(spiderWeb, web.x, web.y, web.width, web.height)
             web.x += web.speed
 
+            // check a web if it's going out of the screen and remove it from webs array
             if(web.x > canvas.width){
                 webs.splice(index, 1)
             }
 
+            // check collision when goblin got hit buy the web and remove it from webs array 
             if(checkCollision(web, enemy)){
                 console.log("GOBLIN GOT HIT")
                 webs.splice(index, 1)
@@ -65,7 +69,14 @@ window.addEventListener('load', () => {
     //Goblin
     const drawEnemy = () => {
         ctx.drawImage(enemyImg,enemy.x,enemy.y,enemy.width,enemy.height);
+
+        bombs.forEach((bomb, index) => {
+            ctx.drawImage(bombImg, bomb.x, bomb.y, bomb.width, bomb.height)
+            bomb.x -= bomb.speed
+        })
     }
+
+
 
     const checkCollision = (a,b) => {
         return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.height + a.y > b.y
@@ -90,17 +101,20 @@ window.addEventListener('load', () => {
 
         if(isSpace && player.cooldown <= 0){
             player.cooldown = 80
-            webs.push(new Obstacle(player.x+player.width-40,player.y+player.height/2,websSpeed))
+            webs.push(new Obstacle(player.x+player.width-40,player.y+player.height/2,webSpeed))
         }
 
+        // Random y position for goblin
         if(animateId %  200 === 0){
             enemy.y = Math.random()*(canvas.height - enemy.height)
+            bombs.push(new Obstacle(canvas.width - enemy.width, enemy.y+enemy.height/3, bombSpeed))
         }
 
         //Player score
         ctx.font = '24px Bangers'
         ctx.fillStyle = 'darkblue'
         ctx.fillText('Score: '+ player.score, 20, 30)
+        
         //Player heath
         ctx.fillText('Heath: '+ player.heath, canvas.width/4, 30)
         animateId = requestAnimationFrame(animate)
