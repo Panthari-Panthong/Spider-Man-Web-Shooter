@@ -19,26 +19,33 @@ window.addEventListener('load', () => {
     const spiderWeb = new Image()
     spiderWeb.src = "../images/spiderWeb.png"
 
+    const enemyImg = new Image()
+    enemyImg.src = "../images/green-goblin.png"
+
     const player = {
         x:canvas.width/4, 
         y: canvas.height/2,
         height:100,
         width: 130,
-        cooldown: 0
+        cooldown: 0,
+        score: 0,
+        heath: 5
+    }
+
+    const enemy = {
+        x:canvas.width/2+canvas.width/4, 
+        y: canvas.height/2,
+        height:170,
+        width: 170,
     }
 
     let animateId
 
-    let isMovingLeft = false
-    let isMovingRight = false
-    let isMoveUp = false
-    let isMoveDown = false
-    let isSpace = false
 
     const webs = []
-    let websSpeed = 7
+    let websSpeed = 10
 
-
+    //Spiderman
     const drawPlayer = () => {
         ctx.drawImage(playerImg,player.x,player.y,player.width,player.height);
 
@@ -54,13 +61,19 @@ window.addEventListener('load', () => {
         if(player.cooldown > 0){
             player.cooldown--
         }
+    }
 
+
+    //Goblin
+    const drawEnemy = () => {
+        ctx.drawImage(enemyImg,enemy.x,enemy.y,enemy.width,enemy.height);
     }
 
 
     const animate = () => {
         ctx.drawImage(bgImg, 0,0, canvas.width,canvas.height)
         drawPlayer()
+        drawEnemy()
 
 
         if(isMovingLeft && player.x > 0){
@@ -84,8 +97,16 @@ window.addEventListener('load', () => {
             })
         }
 
+        if(animateId %  200 === 0){
+            enemy.y = Math.random()*(canvas.height - enemy.height)
+        }
 
-
+        //Player score
+        ctx.font = '24px Bangers'
+        ctx.fillStyle = 'darkblue'
+        ctx.fillText('Score: '+ player.score, 20, 30)
+        //Player heath
+        ctx.fillText('Heath: '+ player.heath, canvas.width/4, 30)
         animateId = requestAnimationFrame(animate)
 
     }
@@ -102,46 +123,4 @@ window.addEventListener('load', () => {
     })
 
 
-    document.addEventListener('keydown', event => {
-        if (event.key === 'ArrowLeft') {
-            isMovingLeft = true
-        }
-        if (event.key === 'ArrowRight') {
-            isMovingRight = true
-        }
-  
-        if (event.key === 'ArrowUp') {
-            isMoveUp = true
-        }
-  
-        if (event.key === 'ArrowDown') {
-            isMoveDown = true
-        }
-
-        if (event.key === ' '){
-            isSpace = true
-        }  
-    })
-
-    document.addEventListener('keyup', event => {
-        if (event.key === 'ArrowLeft') {
-          isMovingLeft = false
-        }
-        if (event.key === 'ArrowRight') {
-          isMovingRight = false
-        }
-
-        if (event.key === 'ArrowUp') {
-            isMoveUp = false
-        }
-
-        if (event.key === 'ArrowDown') {
-            isMoveDown = false
-        }
-        
-        if (event.key === ' '){
-            isSpace = false
-        }  
-
-      })
 })
