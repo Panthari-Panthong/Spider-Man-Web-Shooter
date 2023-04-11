@@ -1,6 +1,6 @@
-# Spider-Man-Web-Shooter
+# 🕸 Spider-Man-Web-Shooter 🕸
 
-[Click here to see deployed game]
+## [Click here to see deployed game](https://panthari-panthong.github.io/Spider-Man-Web-Shooter/)
 
 ## What this project is about
 
