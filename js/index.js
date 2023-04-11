@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
     const gameIntro = document.querySelector('.game-intro')
-    gameIntro.style.backgroundImage = "url('../images/wallpaper-spiderman.jpeg')"
+    gameIntro.style.backgroundImage = "url('images/wallpaper-spiderman.jpeg')"
     gameIntro.style.backgroundRepeat = "no-repeat"
     gameIntro.style.backgroundSize = "cover"
     gameIntro.style.width = "700px"
