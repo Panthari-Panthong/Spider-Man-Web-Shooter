@@ -18,7 +18,7 @@
   </head>
   <body>
     <div class="game-intro">
-      <h1>Spiderman</h1>
+      <h1 class="blue">Spiderman</h1>
       <p>Use the left right up and down arrow to control spiderman</p>
       <img
         src="images/keyboard-arrow-keys.png"
@@ -27,13 +27,20 @@
       />
       <br />
       <img src="images/spacebar.png" alt="spacebar-img" class="arrows-img" />
-      <p>space bar to shoot!</p>
+      <p class="blue">space bar to shoot!</p>
       <br />
       <button id="start-button">StartGame</button>
     </div>
 
     <div id="game-board">
       <canvas id="canvas" width="900" height="500"></canvas>
+    </div>
+
+    <div class="game-over">
+      <h1>Game over</h1>
+      <h2 id="result"></h2>
+      <p id="score"></p>
+      <button id="restart-button">Restart!</button>
     </div>
 
     <script src="js/Player.js"></script>

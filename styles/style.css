@@ -10,21 +10,30 @@ body {
     background-image: url('../images/background-body.jpeg');
     background-repeat: no-repeat;
     font-family: 'Bangers', cursive;
+    font-size: 18px;
   }
   
   .game-intro {
     padding: 0% 10%;
+    color: #fff;
   }
   
   .game-intro p {
     font-size: 1.5rem;
-    color: #fff;
   }
 
-  .game-intro h1 {
-    text-transform: uppercase;
+.blue {
     color: rgb(1, 1, 69);
   }
+
+ h1 {
+    text-transform: uppercase;
+    font-size: 3rem;
+  }
+
+h3 {
+  font-size: 2rem;
+}
   
   body button {
     font-family: 'Bangers', cursive;
@@ -48,4 +57,13 @@ body {
 
 #canvas {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.game-over {
+  background-image: url("../images/game-over.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 700px;
+  height: 500px;
+  color: white;
 }

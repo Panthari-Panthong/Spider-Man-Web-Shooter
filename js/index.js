@@ -6,6 +6,12 @@ window.addEventListener('load', () => {
     gameIntro.style.width = "700px"
     gameIntro.style.height = "500px"
 
+    const gameBoard = document.querySelector('#game-board')
+
+    const gameOverDiv = document.querySelector('.game-over')
+    gameOverDiv.style.display = 'none'
+    const result = document.querySelector('#result')
+    const totalScore = document.querySelector('#score')
 
     const canvas = document.querySelector('#canvas')
     const ctx = canvas.getContext('2d')
@@ -25,18 +31,18 @@ window.addEventListener('load', () => {
     const bombImg = new Image()
     bombImg.src = "images/bomb.png"
 
-    const player = new Player(canvas.width/4,canvas.height/2,100,130)
+    const player = new Player(canvas.width/4,canvas.height/2,100,130,5)
 
-    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170)
-
-    let animateId
-
-
+    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170,5)
+ 
     const webs = []
     let webSpeed = 10
-
+    
     const bombs = []
-    let bombSpeed = 8
+    let bombSpeed = 10
+    
+    let animateId
+    let gameOver = false
 
     //Spiderman
     const drawPlayer = () => {
@@ -53,15 +59,24 @@ window.addEventListener('load', () => {
             }
 
             // check collision when goblin got hit buy the web and remove it from webs array 
-            if(checkCollision(web, enemy)){
+            if(player.checkCollision(web, enemy)){
                 console.log("GOBLIN GOT HIT")
                 webs.splice(index, 1)
                 player.score++
+
+                enemy.heath--
+                console.log(enemy.heath)
             }
         })
 
         if(player.cooldown > 0){
             player.cooldown--
+        }
+
+        if(player.heath === 0){
+            gameOver = true
+            result.innerHTML = "You lose"
+            totalScore.innerHTML = `Your score is ${player.score}`
         }
     }
 
@@ -73,13 +88,22 @@ window.addEventListener('load', () => {
         bombs.forEach((bomb, index) => {
             ctx.drawImage(bombImg, bomb.x, bomb.y, bomb.width, bomb.height)
             bomb.x -= bomb.speed
+
+            if(bomb.x < 0){
+                bombs.splice(index,1)
+            }
+
+            if(enemy.checkCollision(bomb, player)){
+                console.log("SPIDERMAN GOT HIT")
+                bombs.splice(index, 1)
+                player.heath--
+            }
         })
-    }
-
-
-
-    const checkCollision = (a,b) => {
-        return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.height + a.y > b.y
+        if(enemy.heath === 0){
+            gameOver = true
+            result.innerHTML = "You win"
+            totalScore.innerHTML = `Your score is ${player.score}`
+        }
     }
 
 
@@ -105,16 +129,22 @@ window.addEventListener('load', () => {
         }
 
         // Random y position for goblin
-        if(animateId %  200 === 0){
+        if(animateId %  100 === 0){
             enemy.y = Math.random()*(canvas.height - enemy.height)
             bombs.push(new Obstacle(canvas.width - enemy.width, enemy.y+enemy.height/3, bombSpeed))
+        }
+
+        if(gameOver){
+            gameIntro.style.display = 'none'
+            gameBoard.style.display = 'none'
+            gameOverDiv.style.display = 'block'
         }
 
         //Player score
         ctx.font = '24px Bangers'
         ctx.fillStyle = 'darkblue'
         ctx.fillText('Score: '+ player.score, 20, 30)
-        
+
         //Player heath
         ctx.fillText('Heath: '+ player.heath, canvas.width/4, 30)
         animateId = requestAnimationFrame(animate)
@@ -122,8 +152,9 @@ window.addEventListener('load', () => {
     }
 
     const startGame = () => {
-        document.querySelector('.game-intro').style.display = 'none'
-        document.querySelector('#game-board').style.display = 'block'
+        gameIntro.style.display = 'none'
+        gameBoard.style.display = 'block'
+        gameOverDiv.style.display = 'none'
         animate()
 
     }
