@@ -33,6 +33,7 @@ body {
     width: 60%;
     height: 60%;
     color: rgb(1, 1, 69);
+    display: none; 
   }
   
   .game-intro p {
@@ -84,4 +85,5 @@ body button {
   width: 60%;
   height: 60%;
   color: white;
+  display: none; 
 }
