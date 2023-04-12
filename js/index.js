@@ -1,15 +1,11 @@
 window.addEventListener('load', () => {
     const gameIntro = document.querySelector('.game-intro')
-    gameIntro.style.backgroundImage = "url('images/spiderman-bg.jpeg')"
-    gameIntro.style.backgroundRepeat = "no-repeat"
-    gameIntro.style.backgroundSize = "cover"
-    gameIntro.style.width = "60%"
-    gameIntro.style.height = "60%"
 
     const gameBoard = document.querySelector('#game-board')
 
     const gameOverDiv = document.querySelector('.game-over')
     gameOverDiv.style.display = 'none'
+    
     const result = document.querySelector('#result')
     const totalScore = document.querySelector('#score')
 
@@ -30,6 +26,10 @@ window.addEventListener('load', () => {
 
     const bombImg = new Image()
     bombImg.src = "images/bomb.png"
+
+    // Sounds effect
+    const playerHurt = new Audio('sounds/player-hurt.mp3')
+    const gameOverSound = new Audio('sounds/gameove.wav')
 
     // constructor(x,y,height,width,heath,weaponSpeed)
     const player = new Player(canvas.width/4,canvas.height/2,100,130,5,15)
@@ -100,6 +100,7 @@ window.addEventListener('load', () => {
             // reduce player's heath 
             if(enemy.checkCollision(bomb, player)){
                 console.log("SPIDERMAN GOT HIT")
+                playerHurt.play()
                 bombs.splice(index, 1)
                 player.heath--
             }
@@ -161,6 +162,7 @@ window.addEventListener('load', () => {
             gameBoard.style.display = 'none'
             gameOverDiv.style.display = 'block'
             cancelAnimationFrame(animateId)
+            gameOverSound.play()
         }else{
             animateId = requestAnimationFrame(animate)
         }

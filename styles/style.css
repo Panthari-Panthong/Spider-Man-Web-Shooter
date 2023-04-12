@@ -26,6 +26,12 @@ body {
   }
   
   .game-intro {
+    background-image: url("../images/spiderman-bg.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 60%;
+    height: 60%;
     color: rgb(1, 1, 69);
   }
   
