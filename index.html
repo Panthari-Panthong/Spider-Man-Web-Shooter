@@ -17,32 +17,35 @@
     <title>Spiderman Web Shooter</title>
   </head>
   <body>
-    <div class="game-intro">
-      <h1 class="blue">Spiderman</h1>
-      <p>Use the left right up and down arrow to control spiderman</p>
-      <img
-        src="images/keyboard-arrow-keys.png"
-        alt="arrow-img"
-        class="arrows-img"
-      />
-      <br />
-      <img src="images/spacebar.png" alt="spacebar-img" class="arrows-img" />
-      <p class="blue">space bar to shoot!</p>
-      <br />
-      <button id="start-button">StartGame</button>
+    <div class="game-intro shadow-bg">
+      <div class="container" style="width: 50%; padding-left: 40px; gap: 5px">
+        <h1 class="red">Spiderman</h1>
+        <p>Use the left right up and down arrow to control</p>
+        <img
+          src="images/keyboard-arrow-keys.png"
+          alt="arrow-img"
+          class="arrows-img"
+        />
+        <br />
+        <img src="images/spacebar.png" alt="spacebar-img" class="arrows-img" />
+        <p>space bar to shoot!</p>
+        <br />
+        <button id="start-button">StartGame</button>
+      </div>
     </div>
 
     <div id="game-board">
-      <canvas id="canvas" width="900" height="500"></canvas>
+      <canvas id="canvas" class="shadow-bg" width="900" height="500"></canvas>
     </div>
 
-    <div class="game-over">
-      <h1>Game over</h1>
-      <h2 id="result"></h2>
-      <p id="score"></p>
-      <button id="restart-button">Restart!</button>
+    <div class="game-over shadow-bg">
+      <div class="container" style="width: 100%; gap: 40px">
+        <h1>Game over</h1>
+        <h2 id="result"></h2>
+        <p id="score"></p>
+        <button id="restart-button">Restart!</button>
+      </div>
     </div>
-
     <script src="js/Player.js"></script>
     <script src="js/Obstacle.js"></script>
     <script src="js/movement.js"></script>

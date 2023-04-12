@@ -1,10 +1,10 @@
 window.addEventListener('load', () => {
     const gameIntro = document.querySelector('.game-intro')
-    gameIntro.style.backgroundImage = "url('images/wallpaper-spiderman.jpeg')"
+    gameIntro.style.backgroundImage = "url('images/spiderman-bg.jpeg')"
     gameIntro.style.backgroundRepeat = "no-repeat"
     gameIntro.style.backgroundSize = "cover"
-    gameIntro.style.width = "700px"
-    gameIntro.style.height = "500px"
+    gameIntro.style.width = "60%"
+    gameIntro.style.height = "60%"
 
     const gameBoard = document.querySelector('#game-board')
 
@@ -31,15 +31,14 @@ window.addEventListener('load', () => {
     const bombImg = new Image()
     bombImg.src = "images/bomb.png"
 
-    const player = new Player(canvas.width/4,canvas.height/2,100,130,5)
+    // constructor(x,y,height,width,heath,weaponSpeed)
+    const player = new Player(canvas.width/4,canvas.height/2,100,130,5,15)
 
-    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170,5)
+    // constructor(x,y,height,width,heath,weaponSpeed)
+    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170,5,15)
  
     const webs = []
-    let webSpeed = 10
-    
     const bombs = []
-    let bombSpeed = 10
     
     let animateId
     let gameOver = false
@@ -69,10 +68,14 @@ window.addEventListener('load', () => {
             }
         })
 
+        //check the cooldown if more than 0
+        // player can press spacebar again
         if(player.cooldown > 0){
             player.cooldown--
         }
 
+        // check if the player heath go down to 0
+        // the game will be over
         if(player.heath === 0){
             gameOver = true
             result.innerHTML = "You lose"
@@ -93,12 +96,17 @@ window.addEventListener('load', () => {
                 bombs.splice(index,1)
             }
 
+            // check collision if the bomb hit player
+            // reduce player's heath 
             if(enemy.checkCollision(bomb, player)){
                 console.log("SPIDERMAN GOT HIT")
                 bombs.splice(index, 1)
                 player.heath--
             }
         })
+
+        // check if the heath of enemy go to 0
+        // the game will be over
         if(enemy.heath === 0){
             gameOver = true
             result.innerHTML = "You win"
@@ -112,7 +120,9 @@ window.addEventListener('load', () => {
         drawPlayer()
         drawEnemy()
 
-
+        // condition check for pressing the keyboard
+        // control the movement player
+        // fixed the player to not goout of the game frame
         if(isMovingLeft && player.x > 0){
             player.x -= 3
         }else if(isMovingRight && player.x < canvas.width-player.width){
@@ -123,32 +133,37 @@ window.addEventListener('load', () => {
             player.y += 3
         }
 
+        // track the player to not press long spacebar by setting cooldown variable
         if(isSpace && player.cooldown <= 0){
-            player.cooldown = 80
-            webs.push(new Obstacle(player.x+player.width-40,player.y+player.height/2,webSpeed))
+            player.cooldown = 50
+            webs.push(new Obstacle(player.x+player.width-40,player.y+player.height/2,player.weaponSpeed))
         }
 
-        // Random y position for goblin
-        if(animateId %  100 === 0){
+        // Random movement y position for goblin every 100 frame
+        // add bomb to bombs array every 100 frame
+        if(animateId %  70 === 0){
             enemy.y = Math.random()*(canvas.height - enemy.height)
-            bombs.push(new Obstacle(canvas.width - enemy.width, enemy.y+enemy.height/3, bombSpeed))
+            bombs.push(new Obstacle(canvas.width - enemy.width, enemy.y+enemy.height/3, enemy.weaponSpeed))
         }
 
+        //Display player's score
+        ctx.font = '24px Bangers'
+        ctx.fillStyle = 'darkblue'
+        ctx.fillText('Score: '+ player.score, 20, 30)
+        
+        //Display player's heath
+        ctx.fillText('Heath: '+ player.heath, canvas.width/4, 30)
+
+        // check if game is over than bring the player to the gameover page
+        // and stop with the animate
         if(gameOver){
             gameIntro.style.display = 'none'
             gameBoard.style.display = 'none'
             gameOverDiv.style.display = 'block'
+            cancelAnimationFrame(animateId)
+        }else{
+            animateId = requestAnimationFrame(animate)
         }
-
-        //Player score
-        ctx.font = '24px Bangers'
-        ctx.fillStyle = 'darkblue'
-        ctx.fillText('Score: '+ player.score, 20, 30)
-
-        //Player heath
-        ctx.fillText('Heath: '+ player.heath, canvas.width/4, 30)
-        animateId = requestAnimationFrame(animate)
-
     }
 
     const startGame = () => {
@@ -163,5 +178,8 @@ window.addEventListener('load', () => {
         startGame()
     })
 
+    document.getElementById('restart-button').addEventListener('click', () => {
+        window.location.reload();
+    })
 
 })

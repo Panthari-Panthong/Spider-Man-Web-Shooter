@@ -1,5 +1,5 @@
 class Player {
-    constructor(x,y,height,width,heath){
+    constructor(x,y,height,width,heath,weaponSpeed){
         this.x = x
         this.y = y
         this.height = height
@@ -7,6 +7,7 @@ class Player {
         this.cooldown = 0
         this.score = 0
         this.heath = heath
+        this.weaponSpeed = weaponSpeed
     }
 
     checkCollision(a,b){

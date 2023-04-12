@@ -1,29 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    text-align: center;
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    background-image: url('../images/background-body.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('../images/background-body.jpeg');
-    background-repeat: no-repeat;
-    font-family: 'Bangers', cursive;
-    font-size: 18px;
+  }
+
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   .game-intro {
-    padding: 0% 10%;
-    color: #fff;
+    color: rgb(1, 1, 69);
   }
   
   .game-intro p {
     font-size: 1.5rem;
   }
 
-.blue {
-    color: rgb(1, 1, 69);
+.red {
+    color: rgb(134, 0, 0);
   }
 
  h1 {
@@ -32,12 +43,12 @@ body {
   }
 
 h3 {
-  font-size: 2rem;
-}
+    font-size: 2rem;
+  }
   
-  body button {
+body button {
     font-family: 'Bangers', cursive;
-    font-size: 30px;
+    font-size: 1.5rem;
     background-color: #870007;
     color: #fff;
     padding: 20px 40px;
@@ -55,15 +66,16 @@ h3 {
     padding: 20px 0px;
 }
 
-#canvas {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.shadow-bg {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .game-over {
   background-image: url("../images/game-over.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
-  width: 700px;
-  height: 500px;
+  background-position: center;
+  width: 60%;
+  height: 60%;
   color: white;
 }
