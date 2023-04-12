@@ -1,11 +1,13 @@
 window.addEventListener('load', () => {
     const gameIntro = document.querySelector('.game-intro')
+    gameIntro.style.display = 'block'
 
     const gameBoard = document.querySelector('#game-board')
+    gameBoard.style.display = 'none'
 
     const gameOverDiv = document.querySelector('.game-over')
     gameOverDiv.style.display = 'none'
-    
+
     const result = document.querySelector('#result')
     const totalScore = document.querySelector('#score')
 
