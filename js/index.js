@@ -14,30 +14,11 @@ window.addEventListener('load', () => {
     const canvas = document.querySelector('#canvas')
     const ctx = canvas.getContext('2d')
 
-    const bgImg = new Image()
-    bgImg.src = "images/city-backdrop.jpeg"
-
-    const playerImg = new Image()
-    playerImg.src = "images/spiderman.png"
-
-    const spiderWeb = new Image()
-    spiderWeb.src = "images/spiderWeb.png"
-
-    const enemyImg = new Image()
-    enemyImg.src = "images/green-goblin.png"
-
-    const bombImg = new Image()
-    bombImg.src = "images/bomb.png"
-
-    // Sounds effect
-    const playerHurt = new Audio('sounds/player-hurt.mp3')
-    const gameOverSound = new Audio('sounds/gameove.wav')
+    // constructor(x,y,height,width,heath,weaponSpeed)
+    const player = new Player(canvas.width/4,canvas.height/2,100,130,10,15)
 
     // constructor(x,y,height,width,heath,weaponSpeed)
-    const player = new Player(canvas.width/4,canvas.height/2,100,130,5,15)
-
-    // constructor(x,y,height,width,heath,weaponSpeed)
-    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170,5,15)
+    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170,10,15)
  
     const webs = []
     const bombs = []
@@ -61,12 +42,13 @@ window.addEventListener('load', () => {
 
             // check collision when goblin got hit buy the web and remove it from webs array 
             if(player.checkCollision(web, enemy)){
-                console.log("GOBLIN GOT HIT")
+                // console.log("GOBLIN GOT HIT")
+                enemyHurt.play()
                 webs.splice(index, 1)
                 player.score++
 
                 enemy.heath--
-                console.log(enemy.heath)
+                // console.log(enemy.heath)
             }
         })
 
@@ -101,7 +83,7 @@ window.addEventListener('load', () => {
             // check collision if the bomb hit player
             // reduce player's heath 
             if(enemy.checkCollision(bomb, player)){
-                console.log("SPIDERMAN GOT HIT")
+                // console.log("SPIDERMAN GOT HIT")
                 playerHurt.play()
                 bombs.splice(index, 1)
                 player.heath--
@@ -165,6 +147,9 @@ window.addEventListener('load', () => {
             gameOverDiv.style.display = 'block'
             cancelAnimationFrame(animateId)
             gameOverSound.play()
+            baseSound.pause()
+            baseSound.currentTime = 0
+            
         }else{
             animateId = requestAnimationFrame(animate)
         }
@@ -175,6 +160,7 @@ window.addEventListener('load', () => {
         gameBoard.style.display = 'block'
         gameOverDiv.style.display = 'none'
         animate()
+        baseSound.play()
 
     }
 
