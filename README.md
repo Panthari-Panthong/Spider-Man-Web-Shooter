@@ -4,12 +4,42 @@
 
 ## What this project is about
 
-This game was made during Ironhack Bootcamp on week 3 to use the techniques that we have learned in week 1-2.
+Spiderman Web Shooter is a game where the player has to control Spiderman with arrow keys and shoot an enemy with the spider's web. This game was made during Ironhack Bootcamp on week 3 to use DOM and Casvas techniques.
 
-## Technologies used
+## MVP (DOM - CANVAS)
 
-- \*\*HTML
-- \*\*CSS
-- \*\*Javascript
-- \*\*Canvas
-- \*\*DOM
+- game has one player who needs to move around and avoid the bombs.
+- enemy's bombs will appear randomly from the right side of the screen.
+- player has to shoot the enemy to win.
+- player will lose when he gets shot by the enemy and has no health left.
+
+## Backlog
+
+- Add scoreboard and sound.
+- Mute and Unmute audio.
+- Restart or go back to the homepage after you lose.
+
+## Data structure
+
+# index.js
+
+- drawPlayer(){}
+- drawEnemy(){}
+- animate(){}
+- startGame(){}
+- restartGame(){}
+
+# Player.js (class)
+
+- Player() {}
+- checkCollision
+
+# Obstacle.js (class)
+
+- Obstacle() {}
+
+## States y States Transitions
+
+- splashScreen
+- gameScreen
+- gameoverScreen
