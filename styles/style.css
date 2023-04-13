@@ -82,8 +82,15 @@ body button {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  font-size: 2rem;
   width: 60%;
   height: 60%;
   color: white;
   display: none; 
+}
+
+#mute {
+  font-family: 'Bangers', cursive;
+  font-size: 1rem;
+  padding: 10px 10px;
 }

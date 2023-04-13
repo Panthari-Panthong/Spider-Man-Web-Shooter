@@ -11,6 +11,9 @@ window.addEventListener('load', () => {
     const result = document.querySelector('#result')
     const totalScore = document.querySelector('#score')
 
+    const textBtn = document.getElementById('mute') 
+    textBtn.innerText = 'mute'
+
     const canvas = document.querySelector('#canvas')
     const ctx = canvas.getContext('2d')
 
@@ -170,6 +173,16 @@ window.addEventListener('load', () => {
 
     document.getElementById('restart-button').addEventListener('click', () => {
         window.location.reload();
+    })
+
+    document.getElementById('mute').addEventListener('click', (event) => {
+        baseSound.muted = !baseSound.muted;
+        if(event.target.innerText == 'mute'){
+            textBtn.innerText = 'Unmute'
+        }else{
+            textBtn.innerText = 'mute'
+        }
+            
     })
 
 })
