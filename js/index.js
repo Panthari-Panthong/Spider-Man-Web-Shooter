@@ -17,11 +17,14 @@ window.addEventListener('load', () => {
     const canvas = document.querySelector('#canvas')
     const ctx = canvas.getContext('2d')
 
-    // constructor(x,y,height,width,heath,weaponSpeed)
-    const player = new Player(canvas.width/4,canvas.height/2,100,130,10,15)
+    const playerHeath = 20
+    const enemyHeath = 20
 
     // constructor(x,y,height,width,heath,weaponSpeed)
-    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170,10,15)
+    const player = new Player(canvas.width/4,canvas.height/2,100,130,playerHeath,15)
+
+    // constructor(x,y,height,width,heath,weaponSpeed)
+    const enemy = new Player(canvas.width/2+canvas.width/4,canvas.height/2,170,170,enemyHeath,20)
  
     const webs = []
     const bombs = []
@@ -127,9 +130,9 @@ window.addEventListener('load', () => {
             webs.push(new Obstacle(player.x+player.width-40,player.y+player.height/2,player.weaponSpeed))
         }
 
-        // Random movement y position for goblin every 100 frame
-        // add bomb to bombs array every 100 frame
-        if(animateId %  70 === 0){
+        // Random movement y position for goblin every 50 frame
+        // add bomb to bombs array every 500 frame
+        if(animateId %  50 === 0){
             enemy.y = Math.random()*(canvas.height - enemy.height)
             bombs.push(new Obstacle(canvas.width - enemy.width, enemy.y+enemy.height/3, enemy.weaponSpeed))
         }
@@ -164,14 +167,27 @@ window.addEventListener('load', () => {
         gameOverDiv.style.display = 'none'
         animate()
         baseSound.play()
-
     }
+
+    const restartGame = () => {
+        gameOver = false
+        player.score = 0
+        player.heath = playerHeath
+        enemy.heath = enemyHeath
+
+        startGame()
+    }
+
 
     document.getElementById('start-button').addEventListener('click', () => {
         startGame()
     })
 
     document.getElementById('restart-button').addEventListener('click', () => {
+        restartGame()
+    })
+
+    document.getElementById('home-button').addEventListener('click', () => {
         window.location.reload();
     })
 
